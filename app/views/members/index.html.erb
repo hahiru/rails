@@ -1,0 +1,16 @@
+<% @page_title = "scraping" %>
+<h1><%= @page_title %></h1>
+<%= form_tag :search_members, method: :get do %>
+<p>host<%= text_field_tag "target", params[:target] %></p>
+<p>thread<%= text_field_tag "thread", params[:thread] %></p>
+<p><%= submit_tag "検索" %></p>
+<% end %>
+<h2><%= @target %></h2>
+<% if @scrape.present? %>
+  <% @scrape.each do |data|%>
+    <p><%= data["title"] %></p>
+    <p><%= link_to data["url"], data["url"] %></p>
+  <% end %>
+<% else %>
+  <p>nodata</p>
+<% end %>
