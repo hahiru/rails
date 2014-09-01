@@ -12,6 +12,8 @@ class MembersController < ApplicationController
 
   def search
     @scrape = scrape(params[:target],params[:thread])
+    @target = params[:target] + '/' + params[:thread] + '/subback.html'
+    p @scrape
     render "index"
   end
 

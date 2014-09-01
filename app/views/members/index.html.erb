@@ -10,6 +10,7 @@
   <% @scrape.each do |data|%>
     <p><%= data["title"] %></p>
     <p><%= link_to data["url"], data["url"] %></p>
+    <img src=<%= data["image"] %> />
   <% end %>
 <% else %>
   <p>nodata</p>
