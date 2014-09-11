@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Scrape
   require 'open-uri'
   require 'nokogiri'
@@ -19,10 +20,15 @@ module Scrape
     charset = nil
     html = open(url) do |f|
       charset = f.charset
+      p charset
+      p f
+      #f.read.encode("utf-8", :invalid => :replace, :undef => :replace)
       f.read
     end
 
     doc = Nokogiri::XML.parse(html, nil, charset)
+
+#    p "parse: " + doc
 
     thread = doc.xpath('//small/a')
 
@@ -30,11 +36,12 @@ module Scrape
       firstUrl = target + item.attributes["href"].value
       firstUrl = firstUrl.sub("l50","1")
       firstHtml = open(firstUrl) do |f|
-        charset = f.charset
+        firstHtmlCharset = f.charset
         f.read
       end
 
-      firstDoc = Nokogiri::XML.parse(firstHtml, nil, charset)
+      firstDoc = Nokogiri::XML.parse(firstHtml, nil, firstHtmlCharset)
+      p "firstDoc: " + firstDoc
       firstBody = firstDoc.xpath('//dd')
       firstBody.children.each do |threadBody|
         scrapeItem = {}

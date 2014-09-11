@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MembersController < ApplicationController
   require 'scrape'
   include Scrape
