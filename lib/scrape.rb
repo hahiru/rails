@@ -28,10 +28,10 @@ module Scrape
 
     doc = Nokogiri::XML.parse(html, nil, charset)
 
-#    p "parse: " + doc
-
     thread = doc.xpath('//small/a')
 
+    firstHtml = nil
+    firstHtmlCharset = nil
     thread.each do |item|
       firstUrl = target + item.attributes["href"].value
       firstUrl = firstUrl.sub("l50","1")
